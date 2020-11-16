@@ -37,6 +37,8 @@ connection.commit()
 cursor.close()
 connection.close()
 
+
+
 # sqlite> select * from users;
 # 1|Gordon|Ramsy|Red
 # 2|Ironman|Tonny|Gold
