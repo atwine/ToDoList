@@ -43,7 +43,7 @@ def check_users():
 
 
 #this the function that adds people to the database.
-def signup(username, password, favorite_color):
+def signup(username, password):
     connection = sqlite3.connect('to_do_list.db',check_same_thread=False)
 
     cursor = connection.cursor()

@@ -8,19 +8,41 @@ app = Flask(__name__)
 #we need a secret KEY
 app.secret_key = 'atwine-gwerU78h'
 
+username = ''
+user = model.check_users()#this checks the user
+
+
+#what happens before before_request
+@app.before_request
+def before_request():
+    g.username = None
+    if 'username' in session:
+        g.username = session['username'] #this calls an empty session as per username which is empty
+
+
+# 1|Gordon|Ramsy
+# 2|Ironman|Tonny
+# 3|Atwine|12345
+
 #this is the login page
 @app.route('/',methods = ['GET','POST']) #this is like how you see : www.google.com
 def home():
-        return render_template('login.html')
+        if request.method == 'POST':
+            session.pop('username', None) #first you clear the session that there could be before loggin in.
+            areyouuser = request.form.get('username') #pick the username from the form.
+            pwd = model.checkpwd(areyouuser) #check the password of the username
+            if request.form.get('password') == pwd:
+                session['username'] = request.form.get('username')
+                return redirect(url_for('dashboard')) #if the password is correct then take them home.
+        return render_template('login.html', message ="Please Try Again: There is A mistake")#if not then take them to the index.html page.
+
 #home
 @app.route('/homepage',methods = ['GET']) #this is like how you see : www.google.com
 def homepage():
         return render_template('home.html')
 
-        #we need a link to the dashboard in this html page.
-
 #aboutus page
-@app.route('/aboutus', methods = ['GET'])
+@app.route('/aboutus', methods = ['GET','POST'])
 def aboutus():
     return   render_template('aboutus.html')
 
@@ -34,14 +56,33 @@ def dashboard():
 def privacy():
     return render_template('privacy.html')
 #signup page
-@app.route('/signup', methods = ['GET'])
+@app.route('/signup', methods = ['GET','POST'])
 def signup():
-    return render_template('signup.html')
+    if request.method == 'GET':
+        message = 'Please Sign Up!'
+        return   render_template('signup.html', message = message)
+    else:
+        username = request.form.get('username')
+        password = request.form.get('password')
+        return render_template('signup.html', message = model.signup(username, password))
 
 #termsofuse page
 @app.route('/termsofuse', methods = ['GET'])
 def termsofuse():
     return render_template('termsofuse.html')
+
+#this takes you to the already logged in session of the application.
+@app.route('/getsession')
+def getsession():
+    if 'username' in session:
+        return session['username']
+    return redirect(url_for('login'))
+
+#logout of the application.
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__': #this helps you run the app
     app.run(port = 7000, debug = True)
