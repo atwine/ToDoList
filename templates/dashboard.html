@@ -1,10 +1,25 @@
 {% extends "structure.html"%}
 
 {% block main %}
+<div class="container">
 
   <h1>This is the Dashboard Page</h1>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col"><a href="/">Home</a></th>
+        <th scope="col"><a href="/aboutus">About Us</th>
+        <th scope="col"><a href="/dashboard">Dashboard</th>
+        <th scope="col"><a href="/privacy">Privacy</th>
+        <th scope="col"><a href="/termsofuse">Terms of Use</th>
+          <th scope="col"><a href="/signup">Sign Up</th>
+
+      </tr>
+    </thead>
+  </table>
 
 
+</div>
   <p>{{ message }}</p>
 
 {% endblock main %}

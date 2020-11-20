@@ -1,0 +1,52 @@
+
+{% extends "structure.html"%}
+
+{% block main %}
+
+<div class="container">
+    <!-- Content here -->
+    <h1 class="display-4"> Welcome: To Do List App</h1>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col"><a href="/">Home</a></th>
+          <th scope="col"><a href="/aboutus">About Us</th>
+          <th scope="col"><a href="/dashboard">Dashboard</th>
+          <th scope="col"><a href="/privacy">Privacy</th>
+          <th scope="col"><a href="/termsofuse">Terms of Use</th>
+            <th scope="col"><a href="/signup">Sign Up</th>
+
+        </tr>
+      </thead>
+    </table>
+
+    <br>
+    <p class="h4"> Please Log In Below: </p>
+  <form>
+    <div class="form-group">
+  <label for="exampleInputEmail1">User Name</label>
+  <input placeholder="username" name = 'username',type="text" class="form-control">
+  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+    <div class="form-group">
+  <label for="exampleInputPassword1">Password</label>
+  <input placeholder="password" name = 'password',type="password" class="form-control">
+  <small id="emailHelp" class="form-text text-muted">Please make sure your password is strong</small>
+
+    </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <br>
+
+    <br>
+{{message}}
+</div>
+
+
+
+
+  <p>{{ message }}</p>
+
+{% endblock main %}

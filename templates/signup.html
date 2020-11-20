@@ -2,9 +2,51 @@
 
 {% block main %}
 
-  <h1>This is the Sign Up Page</h1>
+
+<div class="container">
+  <h1 class="display-4">This is the Sign Up Page</h1>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col"><a href="/">Home</a></th>
+        <th scope="col"><a href="/aboutus">About Us</th>
+        <th scope="col"><a href="/dashboard">Dashboard</th>
+        <th scope="col"><a href="/privacy">Privacy</th>
+        <th scope="col"><a href="/termsofuse">Terms of Use</th>
+          <th scope="col"><a href="/signup">Sign Up</th>
+
+      </tr>
+    </thead>
+  </table>
 
 
+
+ <br>
+  <br>
+  <form action = '/login' method = 'POST'>
+
+  <div class="form-group row">
+    <div class="col-sm-10">
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">User Name </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control", placeholder="Username">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword", placeholder="Password">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+
+</form>
+
+  </div>
   <p>{{ message }}</p>
 
 {% endblock main %}
