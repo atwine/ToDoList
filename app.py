@@ -47,9 +47,23 @@ def aboutus():
     return   render_template('aboutus.html')
 
 #dashboard page
-@app.route('/dashboard',methods = ['GET'])
+@app.route('/dashboard',methods = ['GET','POST'])
 def dashboard():
-    return render_template('dashboard.html')
+    if request.method == 'POST':
+        task_content = request.form['content']
+        new_task = Todo(content=task_content)
+
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+
+            return redirect('/')
+        except:
+            return "Problem: couldn't add the task!"
+    else:
+        tasks = Todo.query.order_by(Todo.date_created).all()
+        return render_template('index.html', tasks = tasks)
+
 
 #privacy page
 @app.route('/privacy', methods = ['GET'])

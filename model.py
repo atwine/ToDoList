@@ -65,3 +65,20 @@ def signup(username, password):
     connection.close()
     #the return of the real function
     return 'You have successfully signed up'
+
+#I need a todo function: which will add a to-do something on the list.
+def Todo(itemname, itemdescription):
+    connection = sqlite3.connect('to_do_list.db',check_same_thread=False)
+
+    cursor = connection.cursor()
+    #check if the user is there.
+
+    cursor.execute(
+    """insert into todolist (itemname,itemdescription) values('{itemname}','itemdescription');""".format(itemname=itemname,itemdescription=itemdescription)
+    )
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+    #the return of the real function
+    return 'You have successfully added an item'
