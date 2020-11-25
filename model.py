@@ -17,6 +17,24 @@ def checkpwd(username):
 
     return password
 
+
+#check the password of admin  if its available in the db
+def checkpwd_admin(username):
+    connection = sqlite3.connect('to_do_list.db',check_same_thread=False)
+
+    cursor = connection.cursor()
+    cursor.execute(
+    """select password from admins where username = '{username}' order by pk desc;""".format(username = username)
+    )
+
+    password = cursor.fetchone()[0]
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return password
+
 #check user
 def check_users():
     connection = sqlite3.connect('to_do_list.db',check_same_thread=False)

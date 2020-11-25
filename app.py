@@ -49,20 +49,19 @@ def aboutus():
 #dashboard page
 @app.route('/dashboard',methods = ['GET','POST'])
 def dashboard():
+
     if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(content=task_content)
-
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-
-            return redirect('/')
-        except:
-            return "Problem: couldn't add the task!"
+        itemname = request.form.get(itemname)
+        itemdescription = request.form.get(itemdescription)
+        new_task = model.Todo(itemname,itemdescription)
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html', tasks = tasks)
+        return render_template('dashboard.html', tasks = tasks)
+
+#admindashboard page
+@app.route('/admindashboard',methods = ['GET','POST'])
+def admindashboard():
+    return render_template('admindashboard.html')
+
 
 
 #privacy page
@@ -97,6 +96,23 @@ def getsession():
 def logout():
     session.pop('username',None)
     return redirect(url_for('home'))
+
+
+
+
+
+#we need a page for the admin to log in.
+@app.route('/admin', methods = ['GET','POST'])
+def admin():
+    if request.method == 'POST':
+        session.pop('username', None) #first you clear the session that there could be before loggin in.
+        areyouuser = request.form.get('username') #pick the username from the form.
+        pwd = model.checkpwd_admin(areyouuser) #check the password of the username
+        if request.form.get('password') == pwd:
+            session['username'] = request.form.get('username')
+            return redirect(url_for('admindashboard')) #if the password is correct then take them home.
+    return render_template('admin.html', message ="Please Try Again: There is A mistake")#if not then take them to the index.html page.
+
 
 if __name__ == '__main__': #this helps you run the app
     app.run(port = 7000, debug = True)

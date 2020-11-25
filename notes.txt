@@ -1,0 +1,26 @@
+When using Jinja2, you can dynamically create your table using the scripting possibilities of Jinja2,
+with a syntax rather similar to Python:
+
+<table>
+ <thead>
+  {%- for column in columns %}
+     <th>{{ column }}</th>
+  {%- endfor %}
+ </thead>
+
+ <tbody>
+ {%- for row in items %}
+    <tr>
+    {%- for column in columns %}
+       <td>{{ row|attr(column) }}</td>
+    {%- endfor %}
+    </tr>
+ {%- endfor %}
+ </tbody>
+ </table>
+
+
+This link below is userful
+https://www.youtube.com/watch?v=mCy52I4exTU
+
+https://www.youtube.com/watch?v=DBDaNuZvww8&list=PLrC-HcVNfULaP6y6z57MaF2L9fZz0RQJq&index=1
