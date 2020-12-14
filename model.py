@@ -1,5 +1,25 @@
 import sqlite3
 
+#fetchall from the database
+def fetch():
+    connection = sqlite3.connect('to_do_list.db',check_same_thread=False)
+    connection.row_factory = sqlite3.Row
+
+    cursor = connection.cursor()
+    cursor.execute(
+    """select * from todolist;"""
+    )
+
+    items = cursor.fetchall()
+
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+    return items
+
+
+
 #check the password if its available in the db
 def checkpwd(username):
     connection = sqlite3.connect('to_do_list.db',check_same_thread=False)

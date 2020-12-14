@@ -55,6 +55,7 @@ def dashboard():
         itemdescription = request.form.get(itemdescription)
         new_task = model.Todo(itemname,itemdescription)
     else:
+        tasks = model.fetch()
         return render_template('dashboard.html', tasks = tasks)
 
 #admindashboard page

@@ -12,6 +12,7 @@
         <th scope="col"><a href="/privacy">Privacy</th>
         <th scope="col"><a href="/termsofuse">Terms of Use</th>
           <th scope="col"><a href="/signup">Sign Up</th>
+            <th scope="col"><a href="/admin">Admin Panel</th>
 
       </tr>
     </thead>
@@ -26,7 +27,7 @@
 
       {% else %}
 
-      <table>
+      <table class = "table table-hover">
           <tr>
               <th>Task</th>
               <th>Date</th>
@@ -34,8 +35,8 @@
           </tr>
           {% for task in tasks %}
           <tr>
-              <td>{{ task.content }}</td>
-              <td>{{ task.date_created.date() }}</td>
+              <td>{{ task.itemname }}</td>
+              <td>{{ task.itemdescription }}</td>
 
               <td>
                   <a href="/delete/{{task.id}}">Delete</a>
@@ -46,6 +47,8 @@
           {% endfor %}
       </table>
       {% endif %}
+
+      <!------>
 
       <form action="/" method="POST">
           <input placeholder="itemname" type="text" name="content" id="content">
